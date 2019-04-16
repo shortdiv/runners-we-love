@@ -27,7 +27,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["initializeIdentity", "getRunners"]),
+    ...mapActions(["getRunners"]),
   },
   computed: {
     filteredName() {
@@ -39,7 +39,7 @@ export default {
     ...mapState(["runners"])
   },
   created() {
-    // this.getRunners()
+    this.getRunners()
   },
   mounted() {
     // fetch("/.netlify/functions/hello")
@@ -47,7 +47,7 @@ export default {
     //   .then(data => {
     //     this.message = data.msg
     //   })
-    this.initializeIdentity("#identity-wrapper")
+    // this.initializeIdentity("#identity-wrapper")
   }
 }
 </script>
