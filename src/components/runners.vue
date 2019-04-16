@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{ hello }}</h1>  
   <table class="scroll">
     <thead>
       <tr>
@@ -10,9 +9,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(runner, i) in filteredName">
-        <td v-for="entry in runnerColumns">
-          <a target="_blank">
+      <tr v-for="(runner, idx) in filteredName" :key="`${idx}--${runner}`">
+        <td v-for="(entry,ind) in runnerColumns" :key="`${entry}--${ind}`">
+          <a v-if="entry === 'Likes'" @click="upvote(idx, runner[entry])">
+            <i :class="{ fas: runner[entry] > 0, far: runner[entry] === 0, 'fa-heart': true }"></i>
+            {{ runner[entry] }}
+          </a>
+          <a v-else target="_blank">
             {{ runner[entry] }}
           </a>
         </td>
@@ -23,8 +26,7 @@
 </template>
 
 <script>
-  import gql from 'graphql-tag'
-  import { mapState } from "vuex"
+  import { mapState, mapActions } from "vuex"
   export default {
     name: "Runners",
     props: {
@@ -33,26 +35,18 @@
         default: () => []
       }
     },
-    apollo: {
-    // Simple query that will update the 'hello' vue property
-    hello: gql`{hello}`,
-    },
     data () {
       return {
-        hello: ''
       }
     },
     computed: {
       ...mapState(["runnerColumns"])
     },
-    mounted () {
-      // fetch("https://gist.githubusercontent.com/shortdiv/e321906511045e3650f36db4fef256d3/raw/f698d121d48516de0d4d8de1db0f7058c79a1b7d/runners.json")
-      // .then(res => {
-      //   return res.json()
-      // })
-      // .then(data => {
-        // this.runners = data
-      // })
+    methods: {
+      ...mapActions(["incrementLike"]),
+      upvote(idx, currentLikes) {
+        this.incrementLike({idx, currentLikes})
+      }
     }
   }
 </script>
