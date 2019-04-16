@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './components/Dashboard.vue'
-import LoginView './components/LoginView.vue'
+import LoginView from './components/LoginView.vue'
 import store from "./store";
 
 Vue.use(Router)
