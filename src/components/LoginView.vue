@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-    <NavBar />
     <div class="content-body">
     <span>
       <label for="filterText" class="hidden">Name</label>
@@ -14,14 +13,12 @@
 
 <script>
 import Runners from "./runners"
-import NavBar from "./NavBar"
 import { mapActions, mapState } from "vuex"
 
 export default {
   name: 'LoginView',
   components: {
-    Runners,
-    NavBar
+    Runners
   },
   data () {
     return {
@@ -42,7 +39,7 @@ export default {
     ...mapState(["runners"])
   },
   created() {
-    this.getRunners()
+    // this.getRunners()
   },
   mounted() {
     // fetch("/.netlify/functions/hello")
