@@ -26,10 +26,12 @@ export default new Vuex.Store({
   mutations: {
     SET_CURRENT_USER(state, value) {
       state.currentUser = value;
-      saveState("auth.currentUser", value);
     },
     SET_RUNNERS(state, value) {
       state.runners = value
+    },
+    SET_RUNNER(state, value) {
+      state.runners[value.idx]["Likes"] = value.currentLikes
     }
   },
   getters: {
@@ -53,6 +55,7 @@ export default new Vuex.Store({
       const t = db.ref(val.idx)
       val.currentLikes++
       t.update({ Likes: val.currentLikes })
+      commit("SET_RUNNER", val)
     },
     initializeIdentity({commit}, val) {
       netlifyIdentity.init({
